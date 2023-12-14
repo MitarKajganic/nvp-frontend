@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import axios from '../../axios';
 import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
+import axios from '../../axios';
 
 @Component({
   selector: 'app-login',
@@ -8,9 +9,11 @@ import { jwtDecode } from 'jwt-decode';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email: string = ''
-  password: string = ''
-  loginError: string = ''
+  email: string = '';
+  password: string = '';
+  loginError: string = '';
+
+  constructor(private router: Router){}
 
   login(){
     if (this.email.trim() !== '' && this.password !== '') {
@@ -19,10 +22,17 @@ export class LoginComponent {
           password: this.password
         }).then(response => {
           const jwt = response.data.jwt
+          const decoded = jwtDecode(jwt) as any
           localStorage.setItem('jwt', jwt)
-
-          const decoded = jwtDecode(jwt)
-          console.log('Decoded JWT:', decoded)
+          
+          const permissions = decoded.permissions
+          if (permissions.length > 0) {
+            localStorage.setItem('jwt', jwt)
+            localStorage.setItem('permissions', permissions)
+            this.router.navigate(['/table'])
+          } else {
+            alert('No permissions found in JWT');
+          }
         }).catch(error => {
           if (error.response && error.response.status === 403) {
             this.loginError = 'Access denied. Check your credentials and try again.';
