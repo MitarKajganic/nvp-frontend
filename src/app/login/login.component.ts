@@ -10,6 +10,7 @@ import { jwtDecode } from 'jwt-decode';
 export class LoginComponent {
   email: string = ''
   password: string = ''
+  loginError: string = ''
 
   login(){
     if (this.email.trim() !== '' && this.password !== '') {
@@ -23,7 +24,12 @@ export class LoginComponent {
           const decoded = jwtDecode(jwt)
           console.log('Decoded JWT:', decoded)
         }).catch(error => {
-          console.error('Login error', error);
+          if (error.response && error.response.status === 403) {
+            this.loginError = 'Access denied. Check your credentials and try again.';
+          } else {
+            console.error('Login error', error);
+            this.loginError = 'An error occurred during login. Please try again later.';
+          }
         });
     }
   }

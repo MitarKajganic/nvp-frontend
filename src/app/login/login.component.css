@@ -1,9 +1,16 @@
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
 .container {
     max-width: 600px;
 }
 
 .card {
-    margin-top: 20px;
     background-color: #212529;
     color: #f8f9fa;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -37,4 +44,9 @@
     background-color: #495057;
     border-color: #007bff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-control::placeholder {
+    color: #6e747a;
+    font-style: italic;
 }
