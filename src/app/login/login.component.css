@@ -1,0 +1,40 @@
+.container {
+    max-width: 600px;
+}
+
+.card {
+    margin-top: 20px;
+    background-color: #212529;
+    color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.card-title {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    color: #adb5bd;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.form-control {
+    background-color: #495057;
+    border-color: #6c757d;
+    color: #f8f9fa;
+}
+
+.form-control:focus {
+    background-color: #495057;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
