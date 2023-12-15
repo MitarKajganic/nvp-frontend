@@ -13,34 +13,38 @@ export class LoginComponent {
   password: string = '';
   loginError: string = '';
 
-  constructor(private router: Router){}
+  constructor(private router: Router) { }
 
-  login(){
+  login() {
     if (this.email.trim() !== '' && this.password !== '') {
-        axios.post('/auth', {
-          email: this.email,
-          password: this.password
-        }).then(response => {
-          const jwt = response.data.jwt
-          const decoded = jwtDecode(jwt) as any
+      if (this.password.includes(' ')) {
+        alert('Password cannot contain spaces')
+        return;
+      }
+
+      axios.post('/auth', {
+        email: this.email,
+        password: this.password
+      }).then(response => {
+        const jwt = response.data.jwt
+        const decoded = jwtDecode(jwt) as any
+        localStorage.setItem('jwt', jwt)
+
+        const permissions = decoded.permissions
+        if (permissions && permissions.length > 0) {
           localStorage.setItem('jwt', jwt)
-          
-          const permissions = decoded.permissions
-          if (permissions.length > 0) {
-            localStorage.setItem('jwt', jwt)
-            localStorage.setItem('permissions', permissions)
-            this.router.navigate(['/table'])
-          } else {
-            alert('No permissions found in JWT');
-          }
-        }).catch(error => {
-          if (error.response && error.response.status === 403) {
-            this.loginError = 'Access denied. Check your credentials and try again.';
-          } else {
-            console.error('Login error', error);
-            this.loginError = 'An error occurred during login. Please try again later.';
-          }
-        });
+          this.router.navigate(['/table'])
+        } else {
+          alert('No permissions found in JWT');
+        }
+      }).catch(error => {
+        if (error.response && error.response.status === 403) {
+          this.loginError = 'Access denied. Check your credentials and try again.';
+        } else {
+          console.error('Login error', error);
+          this.loginError = 'An error occurred during login. Please try again later.';
+        }
+      });
     }
   }
 }

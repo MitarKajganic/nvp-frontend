@@ -3,15 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { UserTableComponent } from './user-table/user-table.component';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 const routes: Routes = [
   {
     path: "",
-    component:LoginComponent
+    component: LoginComponent
   },
   {
     path: "table",
-    component:UserTableComponent
+    component: UserTableComponent
+  },
+  {
+    path: "create",
+    component: CreateUserComponent
   }
 ];
 

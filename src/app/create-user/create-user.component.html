@@ -1,0 +1,43 @@
+<div class="centered-container">
+    <div class="container">
+        <div class="card">
+            <h3 class="card-title">Create User</h3>
+
+            <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+            <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+            <form (submit)="createUser()">
+                <div class="form-group">
+                    <label class="form-label">First Name:</label>
+                    <input type="text" class="form-control" [(ngModel)]="firstName" name="firstName" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Last Name:</label>
+                    <input type="text" class="form-control" [(ngModel)]="lastName" name="lastName" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email:</label>
+                    <input type="email" class="form-control" [(ngModel)]="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password:</label>
+                    <input type="password" class="form-control" [(ngModel)]="password" name="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Permissions:</label>
+                    <select multiple class="form-control" [(ngModel)]="selectedPermissions" name="permissions">
+                        <option *ngFor="let permission of permissions" [ngValue]="permission">{{ permission }}</option>
+                    </select>
+                </div>
+
+                <div class="button-wrapper">
+                    <button type="submit" class="btn btn-primary">Create User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
