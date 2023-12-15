@@ -44,7 +44,7 @@ export class CreateUserComponent {
 
     axios.post('/users', params)
       .then(response => {
-        this.successMessage = 'User created successfully, redirecting back to table...';
+        this.successMessage = 'User created successfully, redirecting...';
         setTimeout(() => this.router.navigate(['/table']), 2000);
       }).catch(error => {
         this.errorMessage = 'An error occurred while creating the user.';
