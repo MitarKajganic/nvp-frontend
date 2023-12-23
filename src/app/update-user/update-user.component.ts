@@ -69,4 +69,8 @@ export class UpdateUserComponent implements OnInit {
       this.errorMessage = 'An error occurred while creating the user.';
     })
   }
+
+  navigateBack(): void {
+    this.router.navigate(['/table']);
+  }
 }

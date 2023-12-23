@@ -1,6 +1,7 @@
 <div class="centered-container">
     <div class="container">
         <div class="card">
+            <div class="back-arrow" (click)="navigateBack()">&#8592;</div>
             <h3 class="card-title">Create User</h3>
 
             <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>

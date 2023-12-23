@@ -50,4 +50,8 @@ export class CreateUserComponent {
         this.errorMessage = 'An error occurred while creating the user.';
       })
   }
+
+  navigateBack(): void {
+    this.router.navigate(['/table']);
+  }
 }

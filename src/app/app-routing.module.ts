@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { authFunctionGuard } from './auth-function.guard';
 
 import { LoginComponent } from './login/login.component';
 import { UserTableComponent } from './user-table/user-table.component';
@@ -13,15 +14,18 @@ const routes: Routes = [
   },
   {
     path: "table",
-    component: UserTableComponent
+    component: UserTableComponent,
+    canActivate: [() => authFunctionGuard({ expectedPermission: 'can_read_users' })],
   },
   {
     path: "create",
-    component: CreateUserComponent
+    component: CreateUserComponent,
+    canActivate: [() => authFunctionGuard({ expectedPermission: 'can_create_users' })],
   },
   {
     path: "update/:userId",
-    component: UpdateUserComponent
+    component: UpdateUserComponent,
+    canActivate: [() => authFunctionGuard({ expectedPermission: 'can_update_users' })],
   }
 ];
 
