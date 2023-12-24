@@ -66,6 +66,7 @@ export class UserTableComponent implements OnInit {
   }
 
   deleteUser(userId: number, event: MouseEvent): void {
+    event.stopPropagation();
     axios.delete(`/users/${userId}`)
       .then(response => {
         this.users = this.users.filter(user => user.id !== userId);
@@ -73,7 +74,7 @@ export class UserTableComponent implements OnInit {
       .catch(error => {
         alert('Error occurred when attempting to delete user')
       });
-  }
+}
   
 
   navigateToUpdate(userId: number): void {

@@ -50,10 +50,11 @@ table, th, td {
 }
 
 th {
-    height: 50px;
+    height: 60px;
     background-color: #1e2225;
     color: #f8f9fa;
     border-right: 1px solid #6c757d;
+    padding: 10px 15px;
 }
 
 td {

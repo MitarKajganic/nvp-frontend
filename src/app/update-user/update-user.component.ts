@@ -17,7 +17,13 @@ export class UpdateUserComponent implements OnInit {
     'can_create_users',
     'can_read_users',
     'can_update_users',
-    'can_delete_users'
+    'can_delete_users',
+    'can_search_vacuum',
+    'can_start_vacuum',
+    'can_stop_vacuum',
+    'can_discharge_vacuum',
+    'can_add_vacuum',
+    'can_remove_vacuum'
   ]
   selectedPermissions: string [] = []
   successMessage: string = ''
@@ -66,7 +72,7 @@ export class UpdateUserComponent implements OnInit {
       this.successMessage = 'User created successfully, redirecting...';
       setTimeout(() => this.router.navigate(['/table']), 2000);
     }).catch(error => {
-      this.errorMessage = 'An error occurred while creating the user.';
+      this.errorMessage = 'An error occurred while updating user.';
     })
   }
 

@@ -19,7 +19,7 @@
                 <td>{{ user.email }}</td>
                 <td>{{ user.permissions.join(', ') }}</td>
                 <td>
-                    <button class="delete-button" [disabled]="!delete" (click)="deleteUser(user.id, $event)">Delete</button>
+                    <button class="delete-button" [disabled]="!delete" (click)="deleteUser(user.id, $event); $event.stopPropagation();">Delete</button>                
                 </td>
             </tr>
         </tbody>

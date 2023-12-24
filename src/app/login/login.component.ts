@@ -21,6 +21,7 @@ export class LoginComponent {
         alert('Password cannot contain spaces')
         return;
       }
+      localStorage.removeItem('jwt')
 
       axios.post('/auth', {
         email: this.email,
@@ -28,7 +29,6 @@ export class LoginComponent {
       }).then(response => {
         const jwt = response.data.jwt
         const decoded = jwtDecode(jwt) as any
-        localStorage.removeItem('jwt')
         localStorage.setItem('jwt', jwt)
 
         const permissions = decoded.permissions
