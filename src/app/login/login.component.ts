@@ -34,7 +34,7 @@ export class LoginComponent {
         const permissions = decoded.permissions
         if (permissions && permissions.length > 0) {
           localStorage.setItem('jwt', jwt)
-          this.router.navigate(['/table'])
+          this.router.navigate(['/users'])
         } else {
           alert('No permissions found in JWT');
         }

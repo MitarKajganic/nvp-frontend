@@ -4,6 +4,7 @@
     padding: 20px;
     max-width: 80%;
     margin: auto;
+    margin-top: 50px;
     background: #212529;
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);

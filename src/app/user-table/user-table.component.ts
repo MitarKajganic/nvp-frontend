@@ -82,7 +82,7 @@ export class UserTableComponent implements OnInit {
   }
 
   navigateToCreate(): void {
-    this.router.navigate(['/create'])
+    this.router.navigate(['/create-user'])
   }
 
   logout(): void {

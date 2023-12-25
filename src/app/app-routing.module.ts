@@ -13,12 +13,12 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: "table",
+    path: "users",
     component: UserTableComponent,
     canActivate: [() => authFunctionGuard({ expectedPermission: 'can_read_users' })],
   },
   {
-    path: "create",
+    path: "create-user",
     component: CreateUserComponent,
     canActivate: [() => authFunctionGuard({ expectedPermission: 'can_create_users' })],
   },

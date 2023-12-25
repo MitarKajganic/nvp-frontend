@@ -54,7 +54,7 @@ export class UpdateUserComponent implements OnInit {
       this.selectedPermissions = userData.permissions
     }).catch(error => {
       alert('Failed to fetch user data, redirecting...');
-      setTimeout(() => this.router.navigate(['/table']), 2000);
+      setTimeout(() => this.router.navigate(['/users']), 2000);
     })
   }
 
@@ -70,13 +70,13 @@ export class UpdateUserComponent implements OnInit {
     axios.put(`/users`, params)
     .then(response => {
       this.successMessage = 'User created successfully, redirecting...';
-      setTimeout(() => this.router.navigate(['/table']), 2000);
+      setTimeout(() => this.router.navigate(['/users']), 2000);
     }).catch(error => {
       this.errorMessage = 'An error occurred while updating user.';
     })
   }
 
   navigateBack(): void {
-    this.router.navigate(['/table']);
+    this.router.navigate(['/users']);
   }
 }
