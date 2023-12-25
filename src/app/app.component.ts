@@ -18,4 +18,9 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+  logout(): void {
+    localStorage.removeItem('jwt')
+    this.router.navigate(['/'])
+  }
 }

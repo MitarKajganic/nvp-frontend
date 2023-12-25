@@ -1,0 +1,59 @@
+<div class="centered-container">
+    <div class="container">
+        <div class="card">
+            <h3 class="card-title">Search Vacuums</h3>
+
+            <form (submit)="searchVacuums()">
+                <div class="form-group">
+                    <label class="form-label">Name:</label>
+                    <input type="text" class="form-control" [(ngModel)]="searchName" name="searchName">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Status:</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" [(ngModel)]="running" name="running"> Running</label>
+                        <label><input type="checkbox" [(ngModel)]="stopped" name="stopped"> Stopped</label>
+                        <label><input type="checkbox" [(ngModel)]="discharging" name="discharging"> Discharging</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Date From:</label>
+                    <input type="date" class="form-control" [(ngModel)]="dateFrom" name="dateFrom">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Date To:</label>
+                    <input type="date" class="form-control" [(ngModel)]="dateTo" name="dateTo">
+                </div>
+
+                <div class="button-wrapper">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="button" class="btn btn-secondary" (click)="clearFilters()">Clear Filters</button>
+                </div>
+            </form>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Active</th>
+                        <th>Cycle</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vacuum of vacuums">
+                        <td>{{ vacuum.name }}</td>
+                        <td>{{ vacuum.status }}</td>
+                        <td>{{ vacuum.active ? 'Yes' : 'No' }}</td>
+                        <td>{{ vacuum.cycle }}</td>
+                        <td>{{ vacuum.createdAt | date }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

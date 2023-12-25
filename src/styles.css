@@ -5,3 +5,9 @@ body {
     background-color: #343a40;
     color: #f8f9fa;
 }
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}

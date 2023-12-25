@@ -8,6 +8,9 @@ import { LoginComponent } from './login/login.component';
 import { UserTableComponent } from './user-table/user-table.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
+import { SearchComponent } from './search/search.component';
+import { CreateVacuumComponent } from './create-vacuum/create-vacuum.component';
+import { ErrorHistoryComponent } from './error-history/error-history.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { UpdateUserComponent } from './update-user/update-user.component';
     LoginComponent,
     UserTableComponent,
     CreateUserComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    SearchComponent,
+    CreateVacuumComponent,
+    ErrorHistoryComponent
   ],
   imports: [
     BrowserModule,

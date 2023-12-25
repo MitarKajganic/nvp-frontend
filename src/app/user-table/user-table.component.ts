@@ -84,9 +84,4 @@ export class UserTableComponent implements OnInit {
   navigateToCreate(): void {
     this.router.navigate(['/create-user'])
   }
-
-  logout(): void {
-    localStorage.removeItem('jwt')
-    this.router.navigate(['/'])
-  }
 }
