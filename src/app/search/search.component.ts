@@ -36,7 +36,7 @@ export class SearchComponent implements OnInit {
     if (this.dateFrom) params.dateFrom = this.dateFrom;
     if (this.dateTo) params.dateTo = this.dateTo;
   
-    axios.get(`http://localhost:8080/vacuums/search`, { params })
+    axios.get(`/vacuums/search`, { params })
       .then(response => {
         this.vacuums = response.data;
       })
@@ -58,7 +58,7 @@ export class SearchComponent implements OnInit {
   }
 
   loadVacuums(): void {
-    axios.get(`http://localhost:8080/vacuums/search`)
+    axios.get(`/vacuums/search`)
       .then(response => {
         this.vacuums = response.data
       })

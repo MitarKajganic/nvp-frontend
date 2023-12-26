@@ -7,6 +7,7 @@ import { UserTableComponent } from './user-table/user-table.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { SearchComponent } from './search/search.component';
+import { ErrorHistoryComponent } from './error-history/error-history.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: "search",
     component: SearchComponent
+  },
+  {
+    path: "errors",
+    component: ErrorHistoryComponent
   }
 ];
 

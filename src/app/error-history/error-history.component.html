@@ -1,1 +1,25 @@
-<p>error-history works!</p>
+<div class="centered-container">
+    <div class="container">
+        <div class="card">
+            <h3 class="card-title">Error History</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Action</th>
+                        <th>Message</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let errorMessage of errorMessages">
+                        <td>{{ errorMessage.vacuumName }}</td>
+                        <td>{{ errorMessage.action }}</td>
+                        <td>{{ errorMessage.message }}</td>
+                        <td>{{ errorMessage.timestamp | date:'medium' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
