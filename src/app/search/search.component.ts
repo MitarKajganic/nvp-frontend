@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+import axios from '../../axios';
 
 @Component({
   selector: 'app-search',
@@ -6,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  
+
   searchName: string = ''
   running: boolean = false;
   stopped: boolean = false;
@@ -16,14 +19,51 @@ export class SearchComponent implements OnInit {
   vacuums: any[] = []
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.loadVacuums();
   }
 
   searchVacuums(): void {
-
+    let params: any = {};
+  
+    let statusList = [];
+    if (this.running) statusList.push('RUNNING');
+    if (this.stopped) statusList.push('STOPPED');
+    if (this.discharging) statusList.push('DISCHARGING');
+    
+    if (statusList.length > 0) params.statuses = statusList.join(',');
+  
+    if (this.searchName) params.name = this.searchName;
+    if (this.dateFrom) params.dateFrom = this.dateFrom;
+    if (this.dateTo) params.dateTo = this.dateTo;
+  
+    axios.get(`http://localhost:8080/vacuums/search`, { params })
+      .then(response => {
+        this.vacuums = response.data;
+      })
+      .catch(error => {
+        console.error('Error fetching vacuums:', error);
+      });
   }
+  
 
   clearFilters(): void {
+    this.searchName = ''
+    this.running = false;
+    this.stopped = false;
+    this.discharging = false;
+    this.dateFrom = ''
+    this.dateTo = ''
 
+    this.loadVacuums();
+  }
+
+  loadVacuums(): void {
+    axios.get(`http://localhost:8080/vacuums/search`)
+      .then(response => {
+        this.vacuums = response.data
+      })
+      .catch(error => {
+        console.error('Error fetching vacuums:', error);
+      });
   }
 }

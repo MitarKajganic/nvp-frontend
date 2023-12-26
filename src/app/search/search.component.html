@@ -5,9 +5,13 @@
 
             <form (submit)="searchVacuums()">
                 <div class="form-group">
-                    <label class="form-label">Name:</label>
+                    <div class="name-label-clear-wrapper">
+                        <label class="form-label">Name:</label>
+                        <span class="clear-filters" (click)="clearFilters()">Clear Filters</span>
+                    </div>
                     <input type="text" class="form-control" [(ngModel)]="searchName" name="searchName">
                 </div>
+                
 
                 <div class="form-group">
                     <label class="form-label">Status:</label>
@@ -20,21 +24,20 @@
 
                 <div class="form-group">
                     <label class="form-label">Date From:</label>
-                    <input type="date" class="form-control" [(ngModel)]="dateFrom" name="dateFrom">
+                    <input type="datetime-local" class="form-control" [(ngModel)]="dateFrom" name="dateFrom">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Date To:</label>
-                    <input type="date" class="form-control" [(ngModel)]="dateTo" name="dateTo">
+                    <input type="datetime-local" class="form-control" [(ngModel)]="dateTo" name="dateTo">
                 </div>
 
                 <div class="button-wrapper">
                     <button type="submit" class="btn btn-primary">Search</button>
-                    <button type="button" class="btn btn-secondary" (click)="clearFilters()">Clear Filters</button>
-                </div>
+                </div>                
             </form>
 
-            <table class="table">
+            <table>
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -50,7 +53,7 @@
                         <td>{{ vacuum.status }}</td>
                         <td>{{ vacuum.active ? 'Yes' : 'No' }}</td>
                         <td>{{ vacuum.cycle }}</td>
-                        <td>{{ vacuum.createdAt | date }}</td>
+                        <td>{{ vacuum.createdAt | date:'medium' }}</td>
                     </tr>
                 </tbody>
             </table>
