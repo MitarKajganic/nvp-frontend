@@ -9,7 +9,6 @@ import axios from '../../axios';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-
   searchName: string = ''
   running: boolean = false;
   stopped: boolean = false;
@@ -17,9 +16,33 @@ export class SearchComponent implements OnInit {
   dateFrom: string = ''
   dateTo: string = ''
   vacuums: any[] = []
+  canCreateVacuum: boolean = false;
+  canRemoveVacuum: boolean = false;
+  canStartVacuum: boolean = false;
+  canStopVacuum: boolean = false;
+  canDischargeVacuum: boolean = false;
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    const jwt = localStorage.getItem('jwt');
+
+    if (!jwt) {
+      alert('No JWT found in local storage');
+      return;
+    }
+
+    const decoded = jwtDecode(jwt) as any
+    this.setPermissions(decoded.permissions);
     this.loadVacuums();
+  }
+
+  private setPermissions(permissions: string[]): void {
+    this.canCreateVacuum = permissions.includes('can_create_users');
+    this.canRemoveVacuum = permissions.includes('can_remove_users');
+    this.canStartVacuum = permissions.includes('can_start_users');
+    this.canStopVacuum = permissions.includes('can_stop_users');
+    this.canDischargeVacuum = permissions.includes('can_discharge_users');
   }
 
   searchVacuums(): void {
@@ -65,5 +88,9 @@ export class SearchComponent implements OnInit {
       .catch(error => {
         console.error('Error fetching vacuums:', error);
       });
+  }
+
+  navigateToCreateVacuum(): void {
+    this.router.navigate(['/create-vacuum'])
   }
 }

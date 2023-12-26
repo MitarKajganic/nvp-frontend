@@ -167,3 +167,12 @@ tbody tr:nth-child(even) {
 tbody tr:hover {
     background-color: #495057;
 }
+
+.add-vacuum-row {
+    background-color: #343a40; /* Match the table style */
+}
+
+.add-vacuum-row .add-button {
+    width: 100%; /* Make the button fill the cell */
+    font-size: 16px; /* Make it prominent */
+}
