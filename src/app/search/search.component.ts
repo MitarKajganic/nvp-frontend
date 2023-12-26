@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit {
     if (this.running) statusList.push('RUNNING');
     if (this.stopped) statusList.push('STOPPED');
     if (this.discharging) statusList.push('DISCHARGING');
-    
+
     if (statusList.length > 0) params.statuses = statusList.join(',');
   
     if (this.searchName) params.name = this.searchName;
