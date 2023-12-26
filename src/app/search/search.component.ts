@@ -21,6 +21,8 @@ export class SearchComponent implements OnInit {
   canStartVacuum: boolean = false;
   canStopVacuum: boolean = false;
   canDischargeVacuum: boolean = false;
+  successMessage: string = ''
+  errorMessage: string = ''
 
   constructor(private router: Router) { }
 
@@ -38,27 +40,27 @@ export class SearchComponent implements OnInit {
   }
 
   private setPermissions(permissions: string[]): void {
-    this.canCreateVacuum = permissions.includes('can_create_users');
-    this.canRemoveVacuum = permissions.includes('can_remove_users');
-    this.canStartVacuum = permissions.includes('can_start_users');
-    this.canStopVacuum = permissions.includes('can_stop_users');
-    this.canDischargeVacuum = permissions.includes('can_discharge_users');
+    this.canCreateVacuum = permissions.includes('can_create_vacuum');
+    this.canRemoveVacuum = permissions.includes('can_remove_vacuum');
+    this.canStartVacuum = permissions.includes('can_start_vacuum');
+    this.canStopVacuum = permissions.includes('can_stop_vacuum');
+    this.canDischargeVacuum = permissions.includes('can_discharge_vacuum');
   }
 
   searchVacuums(): void {
     let params: any = {};
-  
+
     let statusList = [];
     if (this.running) statusList.push('RUNNING');
     if (this.stopped) statusList.push('STOPPED');
     if (this.discharging) statusList.push('DISCHARGING');
 
     if (statusList.length > 0) params.statuses = statusList.join(',');
-  
+
     if (this.searchName) params.name = this.searchName;
     if (this.dateFrom) params.dateFrom = this.dateFrom;
     if (this.dateTo) params.dateTo = this.dateTo;
-  
+
     axios.get(`/vacuums/search`, { params })
       .then(response => {
         this.vacuums = response.data;
@@ -67,7 +69,7 @@ export class SearchComponent implements OnInit {
         console.error('Error fetching vacuums:', error);
       });
   }
-  
+
 
   clearFilters(): void {
     this.searchName = ''
@@ -93,4 +95,21 @@ export class SearchComponent implements OnInit {
   navigateToCreateVacuum(): void {
     this.router.navigate(['/create-vacuum'])
   }
+
+  removeVacuum(vacuumId: number, event: Event): void {
+    event.stopPropagation();
+
+    if (confirm("Are you sure you want to delete this vacuum?")) {
+      axios.delete(`/vacuums/${vacuumId}`)
+        .then(response => {
+          this.loadVacuums();
+          this.successMessage = 'Vacuum created successfully, redirecting...';
+          setTimeout(() => this.successMessage = '', 1500);
+        })
+        .catch(error => {
+          this.errorMessage = 'An error occurred while creating vacuum';
+        });
+    }
+  }
+
 }

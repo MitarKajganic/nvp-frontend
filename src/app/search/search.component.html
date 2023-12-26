@@ -3,6 +3,9 @@
         <div class="card">
             <h3 class="card-title">Search Vacuums</h3>
 
+            <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+            <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
             <form (submit)="searchVacuums()">
                 <div class="form-group">
                     <div class="name-label-clear-wrapper">
@@ -45,6 +48,7 @@
                         <th>Active</th>
                         <th>Cycle</th>
                         <th>Created At</th>
+                        <th *ngIf="canRemoveVacuum">Remove</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,8 +56,11 @@
                         <td>{{ vacuum.name }}</td>
                         <td>{{ vacuum.status }}</td>
                         <td>{{ vacuum.active ? 'Yes' : 'No' }}</td>
-                        <td>{{ vacuum.cycle }}</td>
+                        <td>{{ vacuum.cycle + '/3' }}</td>
                         <td>{{ vacuum.createdAt | date:'medium' }}</td>
+                        <td *ngIf="canRemoveVacuum">
+                            <button class="btn btn-danger" (click)="removeVacuum(vacuum.id, $event)">Delete</button>
+                        </td>
                     </tr>
                     <tr *ngIf="canCreateVacuum" class="add-vacuum-row">
                         <td colspan="5">

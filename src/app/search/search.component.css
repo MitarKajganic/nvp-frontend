@@ -7,7 +7,7 @@
 }
 
 .container {
-    max-width: 700px;
+    max-width: 800px;
 }
 
 .card {
@@ -139,7 +139,8 @@ table {
     overflow: hidden;
 }
 
-th, td {
+th,
+td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #495057;
@@ -169,10 +170,36 @@ tbody tr:hover {
 }
 
 .add-vacuum-row {
-    background-color: #343a40; /* Match the table style */
+    background-color: #343a40;
 }
 
 .add-vacuum-row .add-button {
-    width: 100%; /* Make the button fill the cell */
-    font-size: 16px; /* Make it prominent */
+    width: 100%;
+    font-size: 16px;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.alert {
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #28a745;
+}
+
+.alert-danger {
+    background-color: #dc3545;
 }
