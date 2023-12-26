@@ -1,1 +1,23 @@
-<p>create-vacuum works!</p>
+<div class="centered-container">
+    <div class="container">
+        <div class="card">
+            <h3 class="card-title">Create Vacuum</h3>
+
+            <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+            <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+            <form (submit)="createVacuum()">
+                <div class="form-group">
+                    <div class="name-label-clear-wrapper">
+                        <label class="form-label">Name:</label>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="name" name="searchName">
+                </div>
+
+                <div class="button-wrapper">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>                
+            </form>
+        </div>
+    </div>
+</div>
