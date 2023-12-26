@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+import { VacuumActionsComponent } from '../vacuum-actions/vacuum-actions.component';
+import { MatDialog } from '@angular/material/dialog';
 import axios from '../../axios';
 
 @Component({
@@ -16,7 +18,7 @@ export class SearchComponent implements OnInit {
   dateFrom: string = ''
   dateTo: string = ''
   vacuums: any[] = []
-  canCreateVacuum: boolean = false;
+  canCreateVacuum: boolean = true;
   canRemoveVacuum: boolean = false;
   canStartVacuum: boolean = false;
   canStopVacuum: boolean = false;
@@ -24,7 +26,7 @@ export class SearchComponent implements OnInit {
   successMessage: string = ''
   errorMessage: string = ''
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     const jwt = localStorage.getItem('jwt');
@@ -92,24 +94,43 @@ export class SearchComponent implements OnInit {
       });
   }
 
-  navigateToCreateVacuum(): void {
-    this.router.navigate(['/create-vacuum'])
-  }
-
   removeVacuum(vacuumId: number, event: Event): void {
     event.stopPropagation();
 
     if (confirm("Are you sure you want to delete this vacuum?")) {
       axios.delete(`/vacuums/${vacuumId}`)
-        .then(response => {
+        .then(() => {
           this.loadVacuums();
           this.successMessage = 'Vacuum created successfully, redirecting...';
           setTimeout(() => this.successMessage = '', 1500);
         })
-        .catch(error => {
+        .catch(() => {
           this.errorMessage = 'An error occurred while creating vacuum';
         });
     }
   }
 
+  canPerformAction(): boolean {
+    return this.canStartVacuum || this.canStopVacuum || this.canDischargeVacuum;
+  }
+
+  openVacuumActions(vacuum: any): void {
+    const dialogRef = this.dialog.open(VacuumActionsComponent, {
+      width: '700px',
+      data: {
+        vacuum: vacuum,
+        canStartVacuum: this.canStartVacuum, 
+        canStopVacuum: this.canStopVacuum,
+        canDischargeVacuum: this.canDischargeVacuum
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  navigateToCreateVacuum(): void {
+    this.router.navigate(['/create-vacuum'])
+  }
 }

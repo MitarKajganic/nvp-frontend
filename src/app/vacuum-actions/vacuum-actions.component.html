@@ -1,0 +1,40 @@
+<h2 mat-dialog-title class="dialog-title">Vacuum Actions</h2>
+<div mat-dialog-content class="action-content">
+    <p class="vacuum-name">Perform actions on the vacuum: {{vacuum.name}}</p>
+    <div class="content-wrapper">
+        <div class="left-section">
+            <div class="action-buttons">
+                <div *ngIf="canStartVacuum">
+                    <button mat-raised-button class="button-primary" (click)="performAction('START')">Start
+                        Vacuum</button>
+                </div>
+                <div *ngIf="canStopVacuum">
+                    <button mat-raised-button class="button-accent" (click)="performAction('STOP')">Stop Vacuum</button>
+                </div>
+                <div *ngIf="canDischargeVacuum">
+                    <button mat-raised-button class="button-warn" (click)="performAction('DISCHARGE')">Discharge
+                        Vacuum</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="date-time-pickers">
+                <mat-form-field appearance="fill">
+                    <mat-label>Action Date</mat-label>
+                    <input matInput [matDatepicker]="datePicker" [(ngModel)]="actionDate">
+                    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datePicker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Action Time</mat-label>
+                    <input matInput [ngModel]="actionTime" (ngModelChange)="onTimeChange($event)" type="time">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions class="cancel-button">
+    <button mat-button (click)="closeDialog()">Cancel</button>
+</div>

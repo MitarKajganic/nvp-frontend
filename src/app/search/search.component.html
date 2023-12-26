@@ -52,7 +52,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let vacuum of vacuums">
+                    <tr *ngFor="let vacuum of vacuums" (click)="canPerformAction() ? openVacuumActions(vacuum) : null" [class.clickable-row]="canPerformAction()">
                         <td>{{ vacuum.name }}</td>
                         <td>{{ vacuum.status }}</td>
                         <td>{{ vacuum.active ? 'Yes' : 'No' }}</td>
