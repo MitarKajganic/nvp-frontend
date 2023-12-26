@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit {
   dateFrom: string = ''
   dateTo: string = ''
   vacuums: any[] = []
-  canCreateVacuum: boolean = true;
+  canCreateVacuum: boolean = false;
   canRemoveVacuum: boolean = false;
   canStartVacuum: boolean = false;
   canStopVacuum: boolean = false;
@@ -42,7 +42,8 @@ export class SearchComponent implements OnInit {
   }
 
   private setPermissions(permissions: string[]): void {
-    this.canCreateVacuum = permissions.includes('can_create_vacuum');
+    console.log(permissions)
+    this.canCreateVacuum = permissions.includes('can_add_vacuum');
     this.canRemoveVacuum = permissions.includes('can_remove_vacuum');
     this.canStartVacuum = permissions.includes('can_start_vacuum');
     this.canStopVacuum = permissions.includes('can_stop_vacuum');

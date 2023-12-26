@@ -203,3 +203,7 @@ tbody tr:hover {
 .alert-danger {
     background-color: #dc3545;
 }
+
+.clickable-row {
+    cursor: pointer;
+}
