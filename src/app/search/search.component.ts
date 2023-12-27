@@ -12,17 +12,19 @@ import axios from '../../axios';
 })
 export class SearchComponent implements OnInit {
   searchName: string = ''
-  running: boolean = false;
-  stopped: boolean = false;
-  discharging: boolean = false;
+  running: boolean = false
+  stopped: boolean = false
+  discharging: boolean = false
   dateFrom: string = ''
   dateTo: string = ''
+  maxDateFrom: string = '';
+  maxDateTo: string = '';
   vacuums: any[] = []
-  canCreateVacuum: boolean = false;
-  canRemoveVacuum: boolean = false;
-  canStartVacuum: boolean = false;
-  canStopVacuum: boolean = false;
-  canDischargeVacuum: boolean = false;
+  canCreateVacuum: boolean = false
+  canRemoveVacuum: boolean = false
+  canStartVacuum: boolean = false
+  canStopVacuum: boolean = false
+  canDischargeVacuum: boolean = false
   successMessage: string = ''
   errorMessage: string = ''
 
@@ -36,9 +38,25 @@ export class SearchComponent implements OnInit {
       return;
     }
 
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    this.maxDateFrom = this.formatDate(today);
+    this.maxDateTo = this.formatDate(tomorrow);
+
     const decoded = jwtDecode(jwt) as any
     this.setPermissions(decoded.permissions);
     this.loadVacuums();
+  }
+
+  private formatDate(date: Date): string {
+    const d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    return [year, month.padStart(2, '0'), day.padStart(2, '0')].join('-');
   }
 
   private setPermissions(permissions: string[]): void {
@@ -102,11 +120,11 @@ export class SearchComponent implements OnInit {
       axios.delete(`/vacuums/${vacuumId}`)
         .then(() => {
           this.loadVacuums();
-          this.successMessage = 'Vacuum created successfully, redirecting...';
+          this.successMessage = 'Vacuum deleted successfully';
           setTimeout(() => this.successMessage = '', 1500);
         })
         .catch(() => {
-          this.errorMessage = 'An error occurred while creating vacuum';
+          this.errorMessage = 'An error occurred while deleting vacuum';
         });
     }
   }
@@ -124,10 +142,6 @@ export class SearchComponent implements OnInit {
         canStopVacuum: this.canStopVacuum,
         canDischargeVacuum: this.canDischargeVacuum
       }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 

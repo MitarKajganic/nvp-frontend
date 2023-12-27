@@ -27,12 +27,12 @@
 
                 <div class="form-group">
                     <label class="form-label">Date From:</label>
-                    <input type="date" class="form-control" [(ngModel)]="dateFrom" name="dateFrom">
+                    <input type="date" class="form-control" [(ngModel)]="dateFrom" name="dateFrom" [max]="maxDateFrom">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Date To:</label>
-                    <input type="date" class="form-control" [(ngModel)]="dateTo" name="dateTo">
+                    <input type="date" class="form-control" [(ngModel)]="dateTo" name="dateTo" [max]="maxDateTo">
                 </div>
 
                 <div class="button-wrapper">
