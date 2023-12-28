@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, EventEmitter, Output  } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import axios from '../../axios';
 
@@ -15,6 +15,8 @@ export class VacuumActionsComponent {
   actionDate: Date | null = null;
   actionTime: string = '';
   minDate: Date = new Date();
+
+  @Output() actionCompleted = new EventEmitter<string>();
 
   constructor(
     public dialogRef: MatDialogRef<VacuumActionsComponent>,
@@ -67,11 +69,14 @@ export class VacuumActionsComponent {
 
   executeOperation(actionType: string): void {
     axios.put(`/vacuums/${actionType}/${this.vacuum.id}`)
-      .catch(error => {
-        console.log(error)
+      .then(response => {
+        if (response.status === 200) this.actionCompleted.emit(actionType);
       })
+      .catch(error => {
+        console.log(error);
+      });
 
-    this.closeDialog()
+    this.closeDialog();
   }
 
   onTimeChange(newTime: string): void {

@@ -20,6 +20,7 @@ export class SearchComponent implements OnInit {
   maxDateFrom: string = '';
   maxDateTo: string = '';
   vacuums: any[] = []
+  selectedVacuumId: number | null = null;
   canCreateVacuum: boolean = false
   canRemoveVacuum: boolean = false
   canStartVacuum: boolean = false
@@ -60,7 +61,6 @@ export class SearchComponent implements OnInit {
   }
 
   private setPermissions(permissions: string[]): void {
-    console.log(permissions)
     this.canCreateVacuum = permissions.includes('can_add_vacuum');
     this.canRemoveVacuum = permissions.includes('can_remove_vacuum');
     this.canStartVacuum = permissions.includes('can_start_vacuum');
@@ -134,6 +134,8 @@ export class SearchComponent implements OnInit {
   }
 
   openVacuumActions(vacuum: any): void {
+    this.selectedVacuumId = vacuum.id
+
     const dialogRef = this.dialog.open(VacuumActionsComponent, {
       width: '700px',
       data: {
@@ -143,7 +145,33 @@ export class SearchComponent implements OnInit {
         canDischargeVacuum: this.canDischargeVacuum
       }
     });
+
+    dialogRef.componentInstance.actionCompleted.subscribe((actionType: string) => {
+      this.handleActionCompletion(actionType, vacuum.cycle);
+    });
   }
+
+  handleActionCompletion(actionType: string, cycleCount: number): void {
+    const baseReloadTime = 20000;
+  
+    if (actionType === 'STOP' && cycleCount === 3) {
+      this.scheduleReload(baseReloadTime);
+      this.scheduleReload(baseReloadTime * 2);
+      this.scheduleReload(baseReloadTime * 3);
+    } else if (actionType === 'DISCHARGE') {
+      this.scheduleReload(baseReloadTime);
+      this.scheduleReload(baseReloadTime * 2);
+    } else {
+      this.scheduleReload(baseReloadTime);
+    }
+  }
+  
+  scheduleReload(delay: number): void {
+    setTimeout(() => {
+      this.loadVacuums();
+    }, delay);
+  }
+  
 
   navigateToCreateVacuum(): void {
     this.router.navigate(['/create-vacuum'])
