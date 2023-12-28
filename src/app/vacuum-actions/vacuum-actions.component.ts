@@ -73,7 +73,7 @@ export class VacuumActionsComponent {
         if (response.status === 200) this.actionCompleted.emit(actionType);
       })
       .catch(error => {
-        console.log(error);
+        alert(error);
       });
 
     this.closeDialog();
